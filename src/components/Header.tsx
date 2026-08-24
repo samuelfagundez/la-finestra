@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { content, whatsappLink } from "../content";
+import { content, contactHref, reservationHref } from "../content";
 
 const NAV = [
   { href: "#sobre-nosotros", label: "Nosotros" },
@@ -8,46 +8,53 @@ const NAV = [
   { href: "#ubicacion", label: "Ubicación" },
 ];
 
-const RESERVE_MESSAGE =
-  "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.";
-
 export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/5 bg-[var(--color-paper)]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <a
           href="#"
-          className="font-display text-xl font-bold text-[var(--color-brand-dark)]"
+          className="shrink-0 font-display text-xl font-bold text-[var(--color-brand-dark)]"
         >
           {content.name}
         </a>
 
-        <nav className="hidden gap-8 md:flex" aria-label="Principal">
+        <nav className="hidden gap-6 lg:flex" aria-label="Principal">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[var(--color-ink)] transition hover:text-[var(--color-brand)]"
+              className="text-sm font-medium whitespace-nowrap text-[var(--color-ink)] transition hover:text-[var(--color-brand)]"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <a
-          href={whatsappLink(RESERVE_MESSAGE)}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="btn-primary hidden md:inline-flex"
-        >
-          Reservar por WhatsApp
-        </a>
+        <div className="hidden shrink-0 items-center gap-3 lg:flex">
+          <a
+            href={contactHref()}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="btn-secondary-sm"
+          >
+            Contáctanos
+          </a>
+          <a
+            href={reservationHref()}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="btn-primary-sm"
+          >
+            Reservar mesa
+          </a>
+        </div>
 
         <button
           type="button"
-          className="inline-flex items-center rounded-md p-2 md:hidden"
+          className="inline-flex items-center rounded-md p-2 lg:hidden"
           aria-expanded={open}
           aria-label="Abrir menú"
           onClick={() => setOpen((v) => !v)}
@@ -64,10 +71,7 @@ export default function Header() {
             {open ? (
               <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
             ) : (
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                strokeLinecap="round"
-              />
+              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
             )}
           </svg>
         </button>
@@ -75,7 +79,7 @@ export default function Header() {
 
       {open && (
         <nav
-          className="border-t border-black/5 px-4 pb-4 md:hidden"
+          className="border-t border-black/5 px-4 pb-4 lg:hidden"
           aria-label="Principal móvil"
         >
           <ul className="flex flex-col gap-3 pt-3">
@@ -90,15 +94,24 @@ export default function Header() {
                 </a>
               </li>
             ))}
-            <li>
+            <li className="flex flex-col gap-2 pt-2">
               <a
-                href={whatsappLink(RESERVE_MESSAGE)}
+                href={reservationHref()}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="btn-primary mt-2 w-full"
+                className="btn-primary w-full"
                 onClick={() => setOpen(false)}
               >
-                Reservar por WhatsApp
+                Reservar mesa
+              </a>
+              <a
+                href={contactHref()}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="btn-secondary w-full"
+                onClick={() => setOpen(false)}
+              >
+                Contáctanos
               </a>
             </li>
           </ul>

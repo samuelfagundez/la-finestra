@@ -1,10 +1,5 @@
-import { content, whatsappLink } from "../content";
+import { content, contactHref, reservationHref } from "../content";
 import { assetUrl } from "../lib/asset";
-
-const RESERVE_MESSAGE =
-  "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.";
-const CONTACT_MESSAGE =
-  "¡Hola! Vengo de la página web de La Finestra y tengo una consulta.";
 
 export default function Hero() {
   return (
@@ -25,7 +20,7 @@ export default function Hero() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <a
-            href={whatsappLink(RESERVE_MESSAGE)}
+            href={reservationHref()}
             target="_blank"
             rel="noreferrer noopener"
             className="btn-primary"
@@ -33,7 +28,7 @@ export default function Hero() {
             Reservar mesa
           </a>
           <a
-            href={whatsappLink(CONTACT_MESSAGE)}
+            href={contactHref()}
             target="_blank"
             rel="noreferrer noopener"
             className="btn-secondary border-white bg-white text-[var(--color-brand-dark)] hover:bg-white/90 hover:text-[var(--color-brand-dark)]"

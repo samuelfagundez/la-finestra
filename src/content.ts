@@ -125,6 +125,25 @@ export function whatsappLink(message: string): string {
   return `https://wa.me/${content.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+export const WHATSAPP_CONTACT_MESSAGE =
+  "¡Hola! Vengo de la página web de La Finestra y tengo una consulta.";
+export const WHATSAPP_RESERVE_MESSAGE =
+  "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.";
+
+// Link externo del sistema de reservas (se abre en pestaña nueva). Mientras
+// no se defina, "Reservar mesa" cae de vuelta a WhatsApp automáticamente.
+export const reservationLink = "";
+
+/** Href del botón "Contáctanos": siempre WhatsApp. */
+export function contactHref(): string {
+  return whatsappLink(WHATSAPP_CONTACT_MESSAGE);
+}
+
+/** Href del botón "Reservar mesa": link externo si ya está definido, si no WhatsApp. */
+export function reservationHref(): string {
+  return reservationLink || whatsappLink(WHATSAPP_RESERVE_MESSAGE);
+}
+
 // El envío de los formularios (contacto/reservas) va vía un Worker de
 // Cloudflare + Brevo — ver cloudflare-worker/worker.js y src/hooks/useContactApi.ts.
 // La URL del Worker se inyecta en build desde el Secret VITE_FORMS_ENDPOINT.
