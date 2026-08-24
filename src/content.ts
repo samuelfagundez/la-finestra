@@ -59,9 +59,9 @@ export const content = {
   siteUrl: "https://samuelfagundez.github.io/la-finestra/",
 
   social: {
+    instagram: "https://www.instagram.com/la_finestra_ristorante",
     // Pendiente: el listado de Google Maps solo mostraba "facebook.com"
     // (URL truncada) — agregar el enlace exacto de la página de Facebook.
-    instagram: "",
     facebook: "",
     tiktok: "",
     whatsapp: "",
