@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", "system-ui", sans-serif;
+
+  --color-ink: #1b140f;
+  --color-paper: #fbf7f1;
+  --color-brand: #7a2e2e;
+  --color-brand-dark: #5c2020;
+  --color-gold: #b8863b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+.section-title {
+  @apply font-display text-3xl sm:text-4xl font-bold text-[var(--color-brand-dark)];
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-md bg-[var(--color-brand)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--color-brand-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)];
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-md border-2 border-[var(--color-brand)] px-6 py-3 font-semibold text-[var(--color-brand)] transition hover:bg-[var(--color-brand)] hover:text-white;
+}
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-[var(--color-brand)] focus:px-4 focus:py-2 focus:text-white;
+}
