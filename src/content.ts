@@ -52,6 +52,8 @@ export const content = {
 
   phone: "+56 9 4259 9048",
   phoneDisplay: "+56 9 4259 9048",
+  // Solo dígitos, con código de país, sin "+" — formato que exige wa.me.
+  whatsappNumber: "56942599048",
   // Correo de contacto público mostrado en el sitio (temporal).
   email: "samuelfagundez97@gmail.com",
 
@@ -64,7 +66,9 @@ export const content = {
     // (URL truncada) — agregar el enlace exacto de la página de Facebook.
     facebook: "",
     tiktok: "",
-    whatsapp: "",
+    whatsapp:
+      "https://wa.me/56942599048?text=" +
+      encodeURIComponent("¡Hola! Vengo de la página web de La Finestra."),
   },
 
   hours: [
@@ -116,18 +120,11 @@ export const content = {
   mapLinkUrl: "https://maps.app.goo.gl/2f988ZfjDrcB8UUd7",
 };
 
-// Configuración de EmailJS (envío de los formularios), inyectada en build
-// desde Secrets del repo. Nada de esto se hardcodea en el código fuente.
-// Ver README para instrucciones de configuración.
-export const emailConfig = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined,
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined,
-  contactTemplateId: import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID as
-    | string
-    | undefined,
-  reservationTemplateId: import.meta.env
-    .VITE_EMAILJS_RESERVATION_TEMPLATE_ID as string | undefined,
-  // Correo que recibe las notificaciones de los formularios (secreto:
-  // no se hardcodea aunque hoy coincida con content.email).
-  toEmail: import.meta.env.VITE_CONTACT_EMAIL as string | undefined,
-};
+/** Link de WhatsApp click-to-chat con mensaje predefinido. */
+export function whatsappLink(message: string): string {
+  return `https://wa.me/${content.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+// El envío de los formularios (contacto/reservas) va vía un Worker de
+// Cloudflare + Brevo — ver cloudflare-worker/worker.js y src/hooks/useContactApi.ts.
+// La URL del Worker se inyecta en build desde el Secret VITE_FORMS_ENDPOINT.

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { content } from "../content";
+import { content, whatsappLink } from "../content";
 
 const NAV = [
   { href: "#sobre-nosotros", label: "Nosotros" },
   { href: "#galeria", label: "Galería" },
   { href: "#horario", label: "Horario" },
-  { href: "#reservas", label: "Reservas" },
-  { href: "#contacto", label: "Contacto" },
   { href: "#ubicacion", label: "Ubicación" },
 ];
+
+const RESERVE_MESSAGE =
+  "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -35,8 +36,13 @@ export default function Header() {
           ))}
         </nav>
 
-        <a href="#reservas" className="btn-primary hidden md:inline-flex">
-          Reservar mesa
+        <a
+          href={whatsappLink(RESERVE_MESSAGE)}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="btn-primary hidden md:inline-flex"
+        >
+          Reservar por WhatsApp
         </a>
 
         <button
@@ -86,11 +92,13 @@ export default function Header() {
             ))}
             <li>
               <a
-                href="#reservas"
+                href={whatsappLink(RESERVE_MESSAGE)}
+                target="_blank"
+                rel="noreferrer noopener"
                 className="btn-primary mt-2 w-full"
                 onClick={() => setOpen(false)}
               >
-                Reservar mesa
+                Reservar por WhatsApp
               </a>
             </li>
           </ul>

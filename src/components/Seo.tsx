@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { content } from "../content";
+import { content, whatsappLink } from "../content";
 
 interface SeoProps {
   title?: string;
@@ -41,9 +41,16 @@ export default function Seo({ title, description, path = "" }: SeoProps) {
       opens: s.opens,
       closes: s.closes,
     })),
-    sameAs: Object.values(content.social).filter(Boolean),
+    // WhatsApp es un canal de chat, no una página de perfil — se excluye
+    // de sameAs (que es para identidades) y en cambio se usa como acción
+    // de reserva en acceptsReservations.
+    sameAs: Object.entries(content.social)
+      .filter(([key, value]) => key !== "whatsapp" && value)
+      .map(([, value]) => value),
     hasMap: content.mapLinkUrl,
-    acceptsReservations: "True",
+    acceptsReservations: whatsappLink(
+      "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.",
+    ),
   };
 
   if (content.phone) jsonLd.telephone = content.phone;
