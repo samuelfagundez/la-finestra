@@ -64,6 +64,7 @@ export default function Seo({ title, description, path = "" }: SeoProps) {
     acceptsReservations: whatsappLink(
       "¡Hola! Vengo de la página web de La Finestra y me gustaría hacer una reserva.",
     ),
+    keywords: content.keywords.join(", "),
   };
 
   if (content.phone) restaurantEntity.telephone = content.phone;
@@ -93,6 +94,7 @@ export default function Seo({ title, description, path = "" }: SeoProps) {
       <html lang="es" />
       <title>{fullTitle}</title>
       <meta name="description" content={desc} />
+      <meta name="keywords" content={content.keywords.join(", ")} />
       <link rel="canonical" href={url} />
 
       {/* Open Graph */}

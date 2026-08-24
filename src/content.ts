@@ -16,11 +16,21 @@ export interface Photo {
 export const content = {
   name: "La Finestra",
   shortName: "La Finestra",
-  tagline: "Pizzería con mucho ambiente en el Eixample de Valencia",
+  tagline: "Pizzería económica con buen ambiente en Valencia, España",
   description:
-    "La Finestra es una pizzería sencilla y animada en el Eixample de Valencia, con gran variedad de pizzas para compartir, cerveza y vino. El local es pequeño y suele llenarse, así que es habitual compartir mesa con otros comensales — ven con ganas de socializar y acompaña las porciones con una jarra de tinto de verano bien fría.",
+    "La Finestra es una pizzería económica en el Eixample de Valencia, España, perfecta para el tapeo entre amigos: pizzas variadas para compartir, cerveza y vino en un local con mucho buen ambiente nocturno. Suele llenarse, así que es habitual compartir mesa con otros comensales — ven con ganas de socializar y acompaña las porciones con una jarra de tinto de verano bien fría.",
   metaDescription:
-    "La Finestra: pizzería en el Eixample de Valencia con gran variedad de pizzas, cerveza y vino en un ambiente animado. Consulta horario, ubicación y reserva tu mesa.",
+    "La Finestra: pizzería económica en Valencia, España, ideal para el tapeo con buen ambiente nocturno. Gran variedad de pizzas para compartir, cerveza y vino. Reserva tu mesa.",
+  keywords: [
+    "La Finestra",
+    "Valencia",
+    "España",
+    "tapeo",
+    "buen ambiente",
+    "pizzería",
+    "pizzería económica",
+    "pizzería con ambiente nocturno",
+  ],
   priceRange: "1 € - 10 €",
   priceRangeDisplay: "1 € – 10 € por persona aprox.",
   cuisine: "Pizzería",
