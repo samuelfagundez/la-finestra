@@ -15,15 +15,28 @@ export default function Seo({ title, description, path = "" }: SeoProps) {
   const url = content.siteUrl.replace(/\/$/, "") + path;
   const image = content.siteUrl.replace(/\/$/, "") + content.gallery[0]?.src;
 
-  const jsonLd: Record<string, unknown> = {
-    "@context": "https://schema.org",
+  const base = content.siteUrl.replace(/\/$/, "");
+
+  // Entidad WebSite explícita: le da a Google una señal directa e
+  // inequívoca del nombre real del sitio para el "breadcrumb" de resultados
+  // (evita que muestre un nombre genérico mientras el sitio es nuevo).
+  const websiteEntity = {
+    "@type": "WebSite",
+    "@id": `${base}/#website`,
+    url: content.siteUrl,
+    name: content.name,
+    inLanguage: "es",
+  };
+
+  const restaurantEntity: Record<string, unknown> = {
     "@type": "Restaurant",
+    "@id": `${base}/#restaurant`,
+    isPartOf: { "@id": `${base}/#website` },
     name: content.name,
     description: content.description,
     image: content.gallery.map(
       (p) => content.siteUrl.replace(/\/$/, "") + p.src,
     ),
-    "@id": content.siteUrl,
     url: content.siteUrl,
     priceRange: content.priceRange,
     servesCuisine: content.cuisine,
@@ -53,22 +66,27 @@ export default function Seo({ title, description, path = "" }: SeoProps) {
     ),
   };
 
-  if (content.phone) jsonLd.telephone = content.phone;
-  if (content.email) jsonLd.email = content.email;
+  if (content.phone) restaurantEntity.telephone = content.phone;
+  if (content.email) restaurantEntity.email = content.email;
   if (content.geo) {
-    jsonLd.geo = {
+    restaurantEntity.geo = {
       "@type": "GeoCoordinates",
       latitude: content.geo.latitude,
       longitude: content.geo.longitude,
     };
   }
   if (content.rating) {
-    jsonLd.aggregateRating = {
+    restaurantEntity.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: content.rating.value,
       reviewCount: content.rating.count,
     };
   }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [websiteEntity, restaurantEntity],
+  };
 
   return (
     <Helmet>

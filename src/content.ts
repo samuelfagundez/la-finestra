@@ -21,7 +21,7 @@ export const content = {
     "La Finestra es una pizzería sencilla y animada en el Eixample de Valencia, con gran variedad de pizzas para compartir, cerveza y vino. El local es pequeño y suele llenarse, así que es habitual compartir mesa con otros comensales — ven con ganas de socializar y acompaña las porciones con una jarra de tinto de verano bien fría.",
   metaDescription:
     "La Finestra: pizzería en el Eixample de Valencia con gran variedad de pizzas, cerveza y vino en un ambiente animado. Consulta horario, ubicación y reserva tu mesa.",
-  priceRange: "€",
+  priceRange: "1 € - 10 €",
   priceRangeDisplay: "1 € – 10 € por persona aprox.",
   cuisine: "Pizzería",
 
