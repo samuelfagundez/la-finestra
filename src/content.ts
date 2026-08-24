@@ -93,6 +93,14 @@ export const content = {
       alt: "Selección de pizzas artesanales de La Finestra sobre tabla de madera",
     },
     {
+      src: "/gallery/la-finestra-burrata.jpg",
+      alt: "Pizzeta de burrata fresca con rúcula y tomate de La Finestra",
+    },
+    {
+      src: "/gallery/la-finestra-tabla.jpg",
+      alt: "Tabla de mini pizzas variadas de La Finestra con cerveza",
+    },
+    {
       src: "/gallery/la-finestra-fachada.jpg",
       alt: "Fachada y terraza exterior de La Finestra en el Eixample de Valencia",
     },
