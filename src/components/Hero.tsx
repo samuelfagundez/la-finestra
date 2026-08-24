@@ -24,7 +24,7 @@ export default function Hero() {
           </a>
           <a
             href="#contacto"
-            className="btn-secondary border-white text-white hover:bg-white hover:text-[var(--color-brand-dark)]"
+            className="btn-secondary border-white bg-white text-[var(--color-brand-dark)] hover:bg-white/90 hover:text-[var(--color-brand-dark)]"
           >
             Contáctanos
           </a>
