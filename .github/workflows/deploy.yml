@@ -33,8 +33,11 @@ jobs:
       - name: Build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
-          VITE_FORMSPREE_CONTACT_ID: ${{ secrets.VITE_FORMSPREE_CONTACT_ID }}
-          VITE_FORMSPREE_RESERVATION_ID: ${{ secrets.VITE_FORMSPREE_RESERVATION_ID }}
+          VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
+          VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
+          VITE_EMAILJS_CONTACT_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_CONTACT_TEMPLATE_ID }}
+          VITE_EMAILJS_RESERVATION_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_RESERVATION_TEMPLATE_ID }}
+          VITE_CONTACT_EMAIL: ${{ secrets.VITE_CONTACT_EMAIL }}
         run: npm run build
 
       # Fallback para rutas desconocidas en GitHub Pages (SPA)

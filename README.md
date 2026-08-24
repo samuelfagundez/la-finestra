@@ -14,8 +14,9 @@ Pages vía GitHub Actions.
 - **react-helmet-async** — título, meta tags, Open Graph, JSON-LD
   (`schema.org/Restaurant`) por página.
 - **embla-carousel-react** — carrusel de la galería.
-- **Formspree** — envío de los formularios sin backend propio (plan
-  gratuito: 50 envíos/mes, API REST, sin tarjeta).
+- **EmailJS** — envío de los formularios sin backend propio, con plantilla
+  de correo 100% personalizada (ver abajo). Plan gratuito: 200 correos/mes,
+  SDK de JS, sin tarjeta.
 
 ## Editar contenido
 
@@ -23,9 +24,9 @@ Todo el contenido (nombre, dirección, teléfono, horario, redes, fotos,
 coordenadas del mapa) vive en **`src/content.ts`**. Es el único archivo que
 hace falta tocar para actualizar datos del restaurante.
 
-Las fotos de la galería van en `public/gallery/`; hoy hay 4 SVG de
-placeholder — reemplázalas por fotos reales (`.jpg`/`.webp`) y actualiza las
-rutas en `content.ts`.
+Las fotos de la galería van en `public/gallery/` — ya están las fotos reales
+del restaurante; para cambiarlas, reemplaza los `.jpg` y actualiza las rutas
+en `content.ts`.
 
 ## Desarrollo local
 
@@ -36,25 +37,53 @@ npm run build     # build de producción (SSG) en dist/
 npm run preview   # sirve dist/ localmente
 ```
 
-## Formularios de contacto y reservas
+## Formularios de contacto y reservas (EmailJS)
 
-Usan [Formspree](https://formspree.io) — no requiere backend ni exponer
-claves privadas: el "form ID" de Formspree está diseñado para ir en el
-frontend (Formspree filtra spam y limita por dominio en su servidor, no por
-mantener el ID en secreto). Aun así, para no hardcodearlo en el código, se
-inyecta en build desde **Secrets del repositorio**:
+Los dos formularios envían el correo directo desde el navegador con
+[EmailJS](https://www.emailjs.com) — no hay backend propio ni claves
+privadas expuestas: EmailJS está diseñado para que su "Public Key" vaya en
+el frontend (igual que el form-ID de otros servicios), y aun así, para no
+hardcodear nada en el código fuente, **todo se inyecta en build desde
+Secrets del repositorio**, incluido el correo de destino.
 
-1. Crea una cuenta gratuita en https://formspree.io
-2. Crea dos formularios: uno para "Contacto" y otro para "Reservas"
-   (cada uno te da un ID tipo `xandkzzz`).
-3. En GitHub: **Settings → Secrets and variables → Actions → New repository
-   secret** y agrega:
-   - `VITE_FORMSPREE_CONTACT_ID`
-   - `VITE_FORMSPREE_RESERVATION_ID`
-4. Vuelve a correr el workflow (push a `main` o "Re-run" en Actions).
+Las plantillas de correo (con la marca/colores de La Finestra) ya están
+escritas en `email-templates/contacto.html` y `email-templates/reserva.html`
+— solo hay que pegarlas en el dashboard de EmailJS.
+
+### Configuración (única vez, ~5 min)
+
+1. Crea una cuenta gratuita en https://www.emailjs.com
+2. **Email Services → Add New Service** → conecta el Gmail (u otro correo)
+   desde el que quieres que salgan los avisos. Copia el **Service ID**.
+3. **Email Templates → Create New Template**, dos veces:
+   - **Contacto**: cambia a modo "Code editor" y pega el contenido de
+     `email-templates/contacto.html`. En "Settings" del template, pon el
+     campo **To Email** como `{{to_email}}` y **Reply To** como
+     `{{email}}` (así puedes responder directo al cliente). Copia el
+     **Template ID**.
+   - **Reserva**: repite con `email-templates/reserva.html` y el mismo
+     `{{to_email}}` / `{{email}}` en Settings. Copia su **Template ID**.
+4. **Account → General**: copia tu **Public Key**.
+5. En GitHub: **Settings → Secrets and variables → Actions → New repository
+   secret** y agrega los 5 secrets de la tabla de abajo.
+6. Vuelve a correr el workflow (push a `main` o "Re-run" en Actions).
 
 Mientras no estén configurados, el sitio funciona igual pero los
 formularios muestran un aviso de "no conectado" en vez de fallar.
+
+### Lista de Secrets del repositorio
+
+| Secret | Qué es | De dónde sale |
+|---|---|---|
+| `VITE_EMAILJS_SERVICE_ID` | ID del servicio de correo conectado | EmailJS → Email Services |
+| `VITE_EMAILJS_PUBLIC_KEY` | Clave pública de la cuenta EmailJS | EmailJS → Account → General |
+| `VITE_EMAILJS_CONTACT_TEMPLATE_ID` | ID de la plantilla "Contacto" | EmailJS → Email Templates |
+| `VITE_EMAILJS_RESERVATION_TEMPLATE_ID` | ID de la plantilla "Reserva" | EmailJS → Email Templates |
+| `VITE_CONTACT_EMAIL` | Correo que recibe los avisos (hoy: `samuelfagundez97@gmail.com`) | Se define aquí, no en el código |
+
+Ninguno de estos valores queda escrito en el código fuente del repo; se
+inyectan solo en build (`.github/workflows/deploy.yml` los lee de
+`secrets.*`).
 
 ## Publicar en GitHub Pages (una sola vez)
 
@@ -78,7 +107,8 @@ formularios muestran un aviso de "no conectado" en vez de fallar.
 
 - HTML pre-renderizado (no depende de JS para ser indexado).
 - Meta tags únicos + Open Graph + Twitter Card por página.
-- JSON-LD `schema.org/Restaurant` con dirección, horario, geo y teléfono.
+- JSON-LD `schema.org/Restaurant` con dirección, horario, teléfono y
+  valoración (rating) de Google.
 - `robots.txt` y `sitemap.xml` en `public/`.
 - Semántica: un solo `<h1>`, `<nav>` etiquetada, `alt` en imágenes,
   `loading="lazy"` en la galería, skip-link de accesibilidad.

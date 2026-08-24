@@ -1,8 +1,10 @@
-import { content, formIds } from "../content";
-import { useFormspree } from "../hooks/useFormspree";
+import { content, emailConfig } from "../content";
+import { useEmailForm } from "../hooks/useEmailForm";
 
 export default function ContactForm() {
-  const { status, handleSubmit, configured } = useFormspree(formIds.contact);
+  const { status, handleSubmit, configured } = useEmailForm(
+    emailConfig.contactTemplateId,
+  );
 
   return (
     <section id="contacto" className="py-20">
@@ -45,8 +47,7 @@ export default function ContactForm() {
           {!configured && (
             <p className="mb-4 rounded-md bg-amber-100 px-4 py-3 text-sm text-amber-900">
               El formulario de contacto aún no está conectado. Ver README
-              para configurar el Secret{" "}
-              <code>VITE_FORMSPREE_CONTACT_ID</code>.
+              para configurar los Secrets de EmailJS.
             </p>
           )}
 
@@ -56,8 +57,6 @@ export default function ContactForm() {
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="grid gap-4" noValidate>
-              <input type="hidden" name="_subject" value="Nuevo mensaje de contacto" />
-
               <div>
                 <label htmlFor="c-name" className="text-sm font-medium">
                   Nombre

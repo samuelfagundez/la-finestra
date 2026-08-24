@@ -1,9 +1,9 @@
-import { formIds } from "../content";
-import { useFormspree } from "../hooks/useFormspree";
+import { emailConfig } from "../content";
+import { useEmailForm } from "../hooks/useEmailForm";
 
 export default function ReservationForm() {
-  const { status, handleSubmit, configured } = useFormspree(
-    formIds.reservation,
+  const { status, handleSubmit, configured } = useEmailForm(
+    emailConfig.reservationTemplateId,
   );
 
   const today = new Date().toISOString().split("T")[0];
@@ -20,7 +20,7 @@ export default function ReservationForm() {
         {!configured && (
           <p className="mt-6 rounded-md bg-amber-100 px-4 py-3 text-sm text-amber-900">
             El formulario de reservas aún no está conectado. Ver README para
-            configurar el Secret <code>VITE_FORMSPREE_RESERVATION_ID</code>.
+            configurar los Secrets de EmailJS.
           </p>
         )}
 
@@ -31,8 +31,6 @@ export default function ReservationForm() {
           </p>
         ) : (
           <form onSubmit={handleSubmit} className="mt-8 grid gap-4" noValidate>
-            <input type="hidden" name="_subject" value="Nueva reserva" />
-
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="r-name" className="text-sm font-medium">

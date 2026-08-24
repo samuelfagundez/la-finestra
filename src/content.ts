@@ -50,11 +50,10 @@ export const content = {
   // la geolocaliza al vuelo), así que no hace falta lat/lng aquí.
   geo: null as { latitude: number; longitude: number } | null,
 
-  // No disponibles en la ficha de Google Maps consultada — agregar cuando
-  // se tengan (ver README).
-  phone: "",
-  phoneDisplay: "",
-  email: "",
+  phone: "+56 9 4259 9048",
+  phoneDisplay: "+56 9 4259 9048",
+  // Correo de contacto público mostrado en el sitio (temporal).
+  email: "samuelfagundez97@gmail.com",
 
   // URL final del sitio (se ajusta al conectar dominio propio)
   siteUrl: "https://samuelfagundez.github.io/la-finestra/",
@@ -109,11 +108,18 @@ export const content = {
   mapLinkUrl: "https://maps.app.goo.gl/2f988ZfjDrcB8UUd7",
 };
 
-// IDs de formulario (Formspree), inyectados en build desde Secrets del repo.
+// Configuración de EmailJS (envío de los formularios), inyectada en build
+// desde Secrets del repo. Nada de esto se hardcodea en el código fuente.
 // Ver README para instrucciones de configuración.
-export const formIds = {
-  contact: import.meta.env.VITE_FORMSPREE_CONTACT_ID as string | undefined,
-  reservation: import.meta.env.VITE_FORMSPREE_RESERVATION_ID as
+export const emailConfig = {
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined,
+  contactTemplateId: import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID as
     | string
     | undefined,
+  reservationTemplateId: import.meta.env
+    .VITE_EMAILJS_RESERVATION_TEMPLATE_ID as string | undefined,
+  // Correo que recibe las notificaciones de los formularios (secreto:
+  // no se hardcodea aunque hoy coincida con content.email).
+  toEmail: import.meta.env.VITE_CONTACT_EMAIL as string | undefined,
 };
