@@ -1,10 +1,11 @@
 import { content } from "../content";
+import { assetUrl } from "../lib/asset";
 
 export default function Hero() {
   return (
     <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-[var(--color-brand-dark)] text-white">
       <img
-        src={content.gallery[0]?.src}
+        src={content.gallery[0] ? assetUrl(content.gallery[0].src) : undefined}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover opacity-40"

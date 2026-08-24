@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { content } from "../content";
+import { assetUrl } from "../lib/asset";
 
 export default function Gallery() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -44,7 +45,7 @@ export default function Gallery() {
                 >
                   <div className="mx-2 aspect-[4/3] overflow-hidden rounded-xl bg-black/5">
                     <img
-                      src={photo.src}
+                      src={assetUrl(photo.src)}
                       alt={photo.alt}
                       loading="lazy"
                       className="h-full w-full object-cover"

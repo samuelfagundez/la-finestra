@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example.github.io/restaurant-site/sitemap.xml
+Sitemap: https://samuelfagundez.github.io/la-finestra/sitemap.xml
