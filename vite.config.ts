@@ -13,7 +13,15 @@ export default {
   base,
   plugins: [react(), tailwindcss()],
   ssgOptions: {
-    script: "async",
+    // "sync" (el valor por defecto de la librería, sin atributo async en
+    // el <script type="module">) es intencional, no un descuido: con
+    // "async" el bundle puede ejecutarse antes de que corra el <script>
+    // inline que define window.__VITE_REACT_SSG_HASH__ al final del
+    // <body> — la carrera resultante deja esa variable en `undefined`,
+    // pide "static-loader-data-manifest-undefined.json" (404) y GitHub
+    // Pages responde con el index.html de repuesto, que el código intenta
+    // parsear como JSON → "Unexpected token '<' ... is not valid JSON".
+    script: "sync",
     formatting: "minify",
   },
 };
